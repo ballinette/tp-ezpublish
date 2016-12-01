@@ -1,3 +1,4 @@
+# This file is auto-generated during the composer install
 parameters:
     secret: 2472ff5cdde1ace5a4a13d29a5a9644f1663fdfe
     locale_fallback: en
@@ -14,3 +15,5 @@ parameters:
     database_user: ezpublish
     database_password: ezpublish
     image_magic_root: /usr/bin/convert
+    kernel.trusted_proxies:
+        - 0.0.0.0

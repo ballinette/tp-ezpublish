@@ -4,38 +4,39 @@ services:
 
   varnish:
     image: eeacms/varnish
+    env_file:
+      - "./common/environment"
     ports:
     - "80:6081"
     volumes:
       - "./varnish/:/etc/varnish/conf.d/"
     networks:
     - web
-    env_file:
-      - "./common/environment"
 
   mysql:
     image: mysql
+    env_file:
+      - "./common/environment"
+      - "./mysql/environment"
     ports:
       - "3306:3306"
     volumes:
       - "./mysql/entrypoint.sh:/usr/local/bin/docker-entrypoint.sh"
       - "./mysql/data/:/var/lib/mysql/"
-    env_file:
-      - "./common/environment"
-      - "./mysql/environment"
+    networks:
+      - web
 
   ezpublish:
     image: jakubsacha/symfony-docker:php5
+    env_file:
+      - "./common/environment"
     ports:
       - "81:80"
     volumes:
       - "./apache/apache2:/usr/local/bin/apache2-start"
+      - "./apache/php.ini:/usr/local/etc/php/conf.d/symfony.ini"
       - "./apache/www/:/var/www/html/"
     command: /usr/local/bin/apache2-start
-    env_file:
-      - "./common/environment"
-    links:
-      - mysql
     networks:
       - web
 

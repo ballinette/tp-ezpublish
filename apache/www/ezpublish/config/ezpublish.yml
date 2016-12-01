@@ -1,0 +1,53 @@
+doctrine:
+    dbal:
+        connections:
+            www_repository_connection:
+                driver: pdo_mysql
+                host: mysql
+                user: root
+                password: admin
+                dbname: ezpublish
+                charset: UTF8
+ezpublish:
+    imagemagick:
+        enabled: true
+        path: "%image_magic_root%"
+    repositories:
+        www_repository:
+            engine: legacy
+            connection: www_repository_connection
+    siteaccess:
+        default_siteaccess: www
+        list:
+            - www
+            - ezadmin
+        groups:
+            ezdemo_site_group:
+                - www
+                - ezadmin
+        match:
+            URIElement: '1'
+    system:
+        ezdemo_site_group:
+            repository: www_repository
+            var_dir: var/ezdemo_site
+        ezadmin:
+            legacy_mode: true
+            languages:
+                - fre-FR
+                - eng-GB
+        www:
+            languages:
+                - eng-GB
+            session:
+                name: eZSESSID
+liip_imagine:
+    driver: imagick
+
+stash:
+    caches:
+        default:
+            drivers:
+                - FileSystem
+            inMemory: true
+            registerDoctrineAdapter: false

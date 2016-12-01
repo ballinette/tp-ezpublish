@@ -1,0 +1,24 @@
+# This file is a "template" of what your parameters.yml file should look like
+parameters:
+    # A secret key that's used to generate certain security-related tokens
+    secret: ThisTokenIsNotSoSecretChangeIt
+    locale_fallback: en
+
+    mailer_transport:  smtp
+    mailer_host:       mx-gw.infrawan.net
+    mailer_user: ~
+    mailer_password: ~
+
+    kernel.trusted_proxies:
+        - 0.0.0.0
+
+    static_html_bundles:
+        default: ProjectBundle
+
+    database_driver: pdo_mysql
+    database_host: mysql-legacy.infra.lan
+    database_port: null
+    database_name: project_ez_dev
+    database_user: project_ez_d
+    database_password: pass
+    image_magic_root: /opt/prod/ImageMagick/bin/convert

@@ -1,0 +1,81 @@
+imports:
+    - { resource: '@ProjectBundle/Resources/config/override.yml' }
+    - { resource: '@ProjectBundle/Resources/config/image.yml' }
+
+doctrine:
+    dbal:
+        connections:
+            fre_repository_connection:
+                driver:   "%database_driver%"
+                host:     "%database_host%"
+                port:     "%database_port%"
+                dbname:   "%database_name%"
+                user:     "%database_user%"
+                password: "%database_password%"
+                charset: UTF8
+    orm:
+        auto_mapping: true
+ezpublish:
+    http_cache:
+        purge_type: http
+    imagemagick:
+        enabled: true
+        path: "%image_magic_root%"
+    repositories:
+        fre_repository:
+            engine: legacy
+            connection: fre_repository_connection
+    siteaccess:
+        default_siteaccess: fre
+        list:
+            - fre
+            - site_admin
+        groups:
+            customer_internet_ez5_group:
+                - fre
+                - site_admin
+        match:
+            Map\URI:
+                 fr: fre
+    system:
+        customer_internet_ez5_group:
+            repository: fre_repository
+            languages:
+                - fre-FR
+            var_dir: var/customer
+        fre:
+            session:
+                name: eZSESSID
+                cookie_httponly: false
+            content:
+                view_cache: true      # Activates HttpCache for content
+                ttl_cache: true       # Activates expiration based HttpCache for content (very fast)
+                default_ttl: 31536000   # Number of seconds an Http response is valid in cache (if ttl_cache is true)
+                tree_root:
+                    location_id: %node_id.accueil%
+            user:
+                layout: "ProjectBundle::pagelayout.html.twig"
+                login_template: "ProjectBundle:User:login.html.twig"
+            fieldtypes:
+                ezxml:
+                    custom_tags:
+                        - { path: %kernel.root_dir%/../src/Foncia/ProjectBundle/Resources/views/custom_tags/custom_tags.xsl, priority: 0 }
+        site_admin:
+              legacy_mode: true
+              session:
+                  name: eZSESSID
+                  cookie_httponly: true
+                  cookie_lifetime: 3600
+stash:
+   caches:
+       default:
+           drivers: [ Memcache ]
+           inMemory: true
+           registerDoctrineAdapter: true
+           registerSessionHandler: false
+           Memcache:
+               prefix_key: %memcache_prefix_key%
+               servers:
+                   -
+                       server: %memcache_server%
+                       port: %memcache_port%

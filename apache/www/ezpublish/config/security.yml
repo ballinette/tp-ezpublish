@@ -1,0 +1,42 @@
+security:
+    providers:
+        ezpublish:
+            id: ezpublish.security.user_provider
+#        in_memory:
+#            memory: ~
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        ezpublish_setup:
+            pattern: ^/ezsetup
+            security: false
+
+        ezpublish_rest:
+            pattern: ^/api/ezp/v2
+            stateless: true
+            ezpublish_http_basic:
+                realm: eZ Publish REST API
+
+        ezpublish_front:
+            pattern: ^/
+            anonymous: ~
+            form_login:
+                require_previous_session: false
+                #login_path:  /login
+                #check_path:  /login_check
+                #default_target_path: /espace-client/
+                #success_handler: project.security.authentication.success.handler
+                #failure_handler: project.security.authentication.failure.handler
+            logout: ~
+#                path: /logout
+#                target: /
+#                invalidate_session: true
+#                handlers: [project.security.logout.handler.session]
+#                delete_cookies:
+#                    is_logged_in: { path: null, domain: null }
+
+        default:
+            anonymous: ~

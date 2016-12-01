@@ -1,0 +1,70 @@
+imports:
+    - { resource: config.yml }
+    - { resource: settings_instance_dev.yml }
+
+framework:
+    router:
+        resource: "%kernel.root_dir%/config/routing_dev.yml"
+        strict_requirements: true
+    profiler:
+        collect:              true
+        only_exceptions:      false
+        lifetime:             600
+
+web_profiler:
+    toolbar: true
+    intercept_redirects: false
+
+monolog:
+    handlers:
+        # split logs per severity and rotate them automatically, just like eZ Legacy does
+        errorhandler:
+            type:   rotating_file
+            path:   "%kernel.logs_dir%/%kernel.environment%.error.log"
+            level:  error
+            max_files: 10
+            bubble: false
+        warninghandler:
+            type:   rotating_file
+            path:   "%kernel.logs_dir%/%kernel.environment%.warning.log"
+            level:  warning
+            max_files: 10
+            bubble: false
+        debughandler:
+            type:   rotating_file
+            path:   "%kernel.logs_dir%/%kernel.environment%.debug.log"
+            level:  debug
+            max_files: 10
+        console:
+            type:   console
+            bubble: false
+# Symfony 2.6
+#            verbosity_levels:
+#                VERBOSITY_VERBOSE: INFO
+#                VERBOSITY_VERY_VERBOSE: DEBUG
+#            channels: ["!doctrine"]
+#        console_very_verbose:
+#            type:   console
+#            bubble: false
+#            verbosity_levels:
+#                VERBOSITY_VERBOSE: NOTICE
+#                VERBOSITY_VERY_VERBOSE: NOTICE
+#                VERBOSITY_DEBUG: DEBUG
+#            channels: ["doctrine"]
+
+        # uncomment to get logging in your browser
+        # you may have to allow bigger header sizes in your Web server configuration
+        #firephp:
+        #    type:   firephp
+        #    level:  info
+        #chromephp:
+        #    type:   chromephp
+        #    level:  info
+
+assetic:
+    use_controller:
+        enabled: true
+        profiler: false
+
+#swiftmailer:
+#    delivery_address: me@example.com

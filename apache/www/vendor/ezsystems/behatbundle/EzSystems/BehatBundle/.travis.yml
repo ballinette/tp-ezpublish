@@ -1,0 +1,45 @@
+language: php
+
+php:
+  - 5.5
+
+# list of paths/bundle to execute
+env:
+  matrix:
+      # test behat default
+    - ARGS="--profile=behat --suite=default"
+      # test REST
+    - ARGS="--profile=rest --suite=fullJson"
+    - ARGS="--profile=rest --suite=fullXml"
+
+# test only master (+ Pull requests)
+branches:
+  only:
+    - master
+
+# Setup system for behat testing
+before_script:
+  # Change local git repo to be a full one as we will reuse current checkout for composer install below
+  - git fetch --unshallow && git checkout -b tmp_travis_branch
+  - export BRANCH_BUILD_DIR=$TRAVIS_BUILD_DIR
+  - export TRAVIS_BUILD_DIR="$HOME/build/ezplatform"
+  - cd "$HOME/build"
+
+  # Checkout meta repo, change the branch and/or remote to use a different ezpublish branch/distro
+  - git clone --depth 1 --single-branch --branch master https://github.com/ezsystems/ezplatform.git
+  - cd ezplatform
+
+  # Install everything needed for behat testing, using our local branch of this repo
+  - ./bin/.travis/setup_from_external_repo.sh $BRANCH_BUILD_DIR "ezsystems/behatbundle:dev-tmp_travis_branch"
+
+# execute behat as the script command
+script:
+  - php bin/behat -c behat.yml.dist $ARGS --tags='~@broken'
+
+# disable mail notifications
+notification:
+  email: false
+
+# reduce depth (history) of git checkout
+git:
+  depth: 30

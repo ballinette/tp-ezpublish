@@ -1,0 +1,14 @@
+parameters:
+     legacy_events_activation:
+          content_copy: false
+          content_delete: false
+          content_publish: false
+          content_create: false
+          content_update: false
+          location_add: false
+          location_delete: false
+          location_hide: false
+          location_unhide: false
+          location_subtreecopy: false
+          location_move: false
+          state_assign: false

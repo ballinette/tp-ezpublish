@@ -1,0 +1,72 @@
+
+{% extends '@KaliopStaticHtml/layout.html.twig' %}
+
+{% set folderNotFound = folderNotFound|default('') %}
+{% set fileNotFound = app.request.get('was') %}
+
+{% set metaTitle %}
+    {{ bundle }} / {% if folderNotFound %}
+        No such folder
+    {% else %}
+        {{ breadcrumbs|last }}
+    {% endif %}
+{% endset %}
+
+{% block breadcrumbs %}
+    <li><a href="/static/">static</a></li>
+    {% for item in breadcrumbs %}
+    <li>
+    {% spaceless %}
+        {% set url = false %}
+        {% if loop.first %}{% set item = bundle %}{% endif %}
+        {% set steps = loop.revindex0 %}
+        {% if steps > 0 %}{% set url %}{% for x in 1..steps %}../{% endfor %}{% endset %}{% endif %}
+
+        {% if url %}
+            <a href="{{ url }}">{{ item }}</a>
+        {% else %}
+            {{ item }}
+        {% endif %}
+    {% endspaceless %}
+    </li>
+    {% endfor %}
+{% endblock %}
+
+{% block content %}
+
+    {% if fileNotFound %}
+        <p class="error">Could not find template <code>{{ fileNotFound }}</code>.<br>Showing the parent directory instead.</p>
+    {% endif %}
+
+    {% if folderNotFound %}
+        <p class="error">No such folder: <code>{{ folderNotFound }}</code></p>
+    {% endif %}
+
+    {% if dirNames %}
+        <ul class="links folders">
+        {% for dir in dirNames %}
+            <li>
+                <a href="{{ dir }}/">
+                    <svg aria-hidden="true"><use xlink:href="#icon-folder"/></svg>
+                    {{ dir }}
+                </a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if fileNames %}
+        <ul class="links templates">
+        {% for file in fileNames %}
+            {% set name = file|replace({'.html':''}) %}
+            <li>
+                <a href="{{ name }}">
+                    <svg aria-hidden="true"><use xlink:href="#icon-file"/></svg>
+                    {{ name }}
+                </a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+{% endblock %}

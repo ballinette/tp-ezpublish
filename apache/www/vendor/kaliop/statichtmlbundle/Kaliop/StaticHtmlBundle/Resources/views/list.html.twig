@@ -1,0 +1,44 @@
+{% extends '@KaliopStaticHtml/layout.html.twig' %}
+
+{% set metaTitle = 'Static HTML bundles' %}
+{% set bundleNotFound = app.request.get('was') %}
+
+{% block content %}
+
+    {% if bundleNotFound %}
+        <p class="error">
+            Could not find static HTML bundle matching <code>"{{ bundleNotFound }}"</code>.
+            <br>Showing the list of known static HTML bundles instead.
+        </p>
+    {% endif %}
+
+    {% if not bundleNames %}
+        <p class="error">
+            Could not find any static HTML bundle.
+        </p>
+    {% else %}
+        <ul class="links folders">
+        {% for bundle in bundleNames %}
+            {% set bundleKey = bundle|lower|replace({
+                'staticbundle':'',
+                'bundle':''
+            }) %}
+            <li>
+                <a href="/static/{{ bundleKey }}/">
+                    <svg aria-hidden="true"><use xlink:href="#icon-folder"/></svg>
+                    {{ bundle }}
+                </a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+    <h2>
+        About
+    </h2>
+    <p class="info">
+        Static HTML bundles must be referenced in the <code>assetic.bundles</code>
+        config, and must have a <code>Resources/views/static-html</code> folder.
+    </p>
+
+{% endblock content %}

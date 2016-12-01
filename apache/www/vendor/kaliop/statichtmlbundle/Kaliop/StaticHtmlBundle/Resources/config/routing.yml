@@ -1,0 +1,22 @@
+static_html_list:
+    path: "/static/"
+    defaults:
+        _controller: KaliopStaticHtmlBundle:StaticHtml:list
+
+static_html_index:
+    path: "/static/{bundleRef}/{templateDir}"
+    defaults:
+        _controller: KaliopStaticHtmlBundle:StaticHtml:index
+    requirements:
+        bundleRef: "[A-Za-z0-9_-]+"
+        templateDir: "([\/A-Za-z0-9_-]+\/)?"
+
+static_html_page:
+    path: "/static/{bundleRef}/{templateDir}{templateName}{templateExt}"
+    defaults:
+        _controller: KaliopStaticHtmlBundle:StaticHtml:page
+    requirements:
+        bundleRef: "[A-Za-z0-9_-]+"
+        templateDir:  "([\/A-Za-z0-9_-]+\/)?"
+        templateName: "[^\./\s]+"
+        templateExt:  "(\.[a-z]{2,5})?"

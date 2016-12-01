@@ -1,0 +1,18 @@
+body::before,
+.test {
+	display: block;
+	margin: 1em 0;
+	padding: 2em 1em;
+	text-align: center;
+	color: white;
+	background: black;
+}
+
+body::before {
+	content: "Stylesheet 1/1 is loaded";
+	background: blue;
+}
+
+.test {
+	background: green;
+}

@@ -1,0 +1,90 @@
+parameters:
+    kalioputils.helper.content.class: Kaliop\UtilsBundle\Helper\ContentHelper
+    kalioputils.helper.location.class: Kaliop\UtilsBundle\Helper\LocationHelper
+    kalioputils.slot.onpublish.class: Kaliop\UtilsBundle\Slot\OnPublishSlot
+    # Class called to intercept kernelRequest and set the Locale used for translation
+    kalioputils.listener.locale.class: Kaliop\UtilsBundle\Classes\EventListener\LocaleListener
+    kalioputils.helper.treemenu.class: Kaliop\UtilsBundle\Helper\TreeMenuHelper
+    kalioputils.helper.translation.class: Kaliop\UtilsBundle\Helper\TranslationHelper
+    kalioputils.legacy_kernel_listener.class: Kaliop\UtilsBundle\EventListener\LegacyKernelListener
+    kalioputils.legacy_signal_dispatcher.class: Kaliop\UtilsBundle\Signal\LegacySignalDispatcher
+    kalioputils.helper.response.class: Kaliop\UtilsBundle\Helper\ResponseHelper
+    kalioputils.helper.varnish.class: Kaliop\UtilsBundle\Helper\VarnishHelper
+    kalioputils.helper.sfcache.class: Kaliop\UtilsBundle\Helper\SfCacheHelper
+    kalioputils.twig.extension.class: Kaliop\UtilsBundle\Twig\KaliopUtilsExtension
+
+services:
+
+    ### Helpers
+
+    kalioputils.helper.content:
+        class: %kalioputils.helper.content.class%
+        arguments: [@ezpublish.signalslot.repository]
+
+    kalioputils.helper.location:
+        class: %kalioputils.helper.location.class%
+        arguments: [@ezpublish.signalslot.repository]
+
+    kalioputils.helper.treemenu:
+        class: %kalioputils.helper.treemenu.class%
+        arguments: [@service_container]
+
+    kalioputils.helper.translation:
+        class: %kalioputils.helper.translation.class%
+        arguments: [@ezpublish.config.resolver.core]
+
+    kalioputils.helper.response:
+        class: %kalioputils.helper.response.class%
+        arguments: [31536000]
+
+    kalioputils.helper.varnish:
+        class: %kalioputils.helper.varnish.class%
+        arguments: [@ezpublish.http_cache.cache_manager]
+
+    kalioputils.helper.sfcache:
+        class: %kalioputils.helper.sfcache.class%
+        arguments:
+            - @kernel
+            - @filesystem
+            - %kernel.cache_dir%
+            - %kernel.container_class%
+
+    ### Twig
+
+    kalioputils.twig.extension:
+        class: %kalioputils.twig.extension.class%
+        arguments: [@ezpublish_legacy.kernel]
+        tags:
+            - { name: 'twig.extension' }
+
+    ### Listeners
+
+    # Service which intercept kernelRequest and set the Locale used for translation according to the siteaccess
+    kernel.listener.localeListener:
+        class: %kalioputils.listener.locale.class%
+        calls:
+            - [setContainer, [@service_container] ]
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+    kalioputils.legacy_kernel_listener:
+        class: %kalioputils.legacy_kernel_listener.class%
+        arguments:
+            - @kalioputils.legacy_signal_dispatcher
+            - %legacy_events_activation%
+            - @ezpublish_legacy.kernel
+        tags:
+            - { name: kernel.event_subscriber }
+
+    kalioputils.legacy_signal_dispatcher:
+        class: %kalioputils.legacy_signal_dispatcher.class%
+        arguments:
+            - @logger
+            - @ezpublish.signalslot.signal_dispatcher
+
+    kalioputils.slot.onpublish:
+        class: %kalioputils.slot.onpublish.class%
+        arguments:
+            - @service_container
+        tags:
+            - { name: ezpublish.api.slot, signal: ContentService\PublishVersionSignal }

@@ -1,0 +1,20 @@
+{
+    "name": "kaliop/statichtmlbundle",
+    "description": "Kaliop StaticHTML Bundle",
+    "license": "GPL-2.0",
+    "authors": [
+        {
+            "name": "Kaliop",
+            "homepage": "https://stash.kaliop.net/"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "ezsystems/ezpublish-kernel": "*"
+    },
+    "autoload": {
+        "psr-0": {"Kaliop\\StaticHtmlBundle": ""}
+    },
+    "target-dir": "Kaliop"
+}
+

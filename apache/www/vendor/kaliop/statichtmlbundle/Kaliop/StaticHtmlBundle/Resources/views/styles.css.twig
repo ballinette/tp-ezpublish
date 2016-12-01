@@ -1,0 +1,142 @@
+html {
+    padding: 20px;
+}
+@media (min-width: 600px) {
+    html { font-size: 110%; }
+}
+@media (min-width: 900px) {
+    html { font-size: 125%; }
+}
+
+body {
+    max-width: 52rem;
+    margin: 0 auto;
+    font-family: sans-serif;
+    color: #111;
+    background-color: #fff;
+}
+nav {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    font-weight: bold;
+}
+nav ul {
+    margin: 0;
+    padding: 0;
+}
+nav li {
+    display: inline-block;
+    white-space: nowrap;
+}
+nav li:nth-last-child(1n+2)::after {
+    content: " /";
+}
+nav a {
+    color: forestgreen;
+}
+
+h2 {
+    margin: 3rem 0 1rem;
+    font-size: 1rem;
+    line-height: 1.2;
+}
+p {
+    font-size: 1rem;
+}
+code {
+    font-size: 85%;
+    font-family: monospace, monospace;
+    color: #177B5F;
+}
+a {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-decoration: none;
+}
+svg {
+    display: inline-block;
+    fill: currentColor;
+    width: 1.2em;
+    height: 1.2em;
+}
+.error {
+    color: crimson;
+}
+.info {
+    max-width: 40em;
+    font-size: .8rem;
+    color: gray;
+}
+.links {
+    margin: 1.5rem 0 .75rem;
+    padding: .25em 0 0;
+    list-style: none;
+    font-size: 1.1rem;
+}
+.links + .links {
+    margin-top: .75rem;
+}
+.links li {
+    /* We could define it on links, but it makes the icons disappear in Chrome. */
+    position: relative;
+    padding: 1px 0;
+}
+
+.links a {
+    display: block;
+    overflow: hidden;
+    padding: .5em .5em .6em 2.6em;
+    color: midnightblue;
+    border-radius: .2em;
+}
+.folders {
+    padding-top: 0;
+}
+.folders li {
+    padding: .25em 0;
+}
+.folders a {
+    box-shadow: inset 0 0 0 .1em rgba(0,0,0,.2);
+}
+.links a:hover,
+.links a:focus {
+    color: white;
+    background-color: midnightblue;
+}
+.links svg {
+    position: absolute;
+    top: 50%;
+    left: .8em;
+    color: #6C6CA4;
+    margin-top: -.6em;
+}
+.links a:hover svg,
+.links a:focus svg {
+    color: #fff;
+}
+
+
+@media (max-width: 359px) {
+    .links { font-size: 1rem; }
+}
+@media (min-width: 360px) {
+    html {
+        padding: 40px 30px;
+    }
+}
+@media (min-width: 760px) {
+    .links {
+        -webkit-column-count: 2;
+        -webkit-column-gap: 1em;
+        -moz-column-count: 2;
+        -moz-column-gap: 1em;
+        column-count: 2;
+        column-gap: 1em;
+    }
+    .links li {
+        -webkit-column-break-inside: avoid;
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+}

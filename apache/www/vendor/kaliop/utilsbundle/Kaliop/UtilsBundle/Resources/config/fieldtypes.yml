@@ -1,0 +1,4 @@
+parameters:
+    # override ezpublish xmlText embed & links converters
+    ezpublish.fieldType.ezxmltext.converter.embedToHtml5.class:  Kaliop\UtilsBundle\Core\FieldType\XmlText\Converter\KaliopEmbedToHtml5Converter
+    ezpublish.fieldType.ezxmltext.converter.embedLinking.class:  Kaliop\UtilsBundle\Core\FieldType\XmlText\Converter\KaliopEmbedLinkingConverter

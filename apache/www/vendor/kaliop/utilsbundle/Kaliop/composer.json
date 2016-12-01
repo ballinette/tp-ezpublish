@@ -1,0 +1,19 @@
+{
+    "name": "kaliop/utilsbundle",
+    "description": "KaliopUtils Bundle",
+    "license": "GPL-2.0",
+    "authors": [
+        {
+            "name": "Kaliop",
+            "homepage": "http://stash.kaliop.net/"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "ezsystems/ezpublish-kernel": "*"
+    },
+    "autoload": {
+        "psr-0": {"Kaliop\\UtilsBundle": ""}
+    },
+    "target-dir": "Kaliop"
+}

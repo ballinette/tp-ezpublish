@@ -1,0 +1,5 @@
+ezpublish:
+    system:
+        global:
+            field_templates:
+                - { template: "KaliopUtilsBundle:fields:content_fields.html.twig", priority: 10 }

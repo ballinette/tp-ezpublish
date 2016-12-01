@@ -1,0 +1,10 @@
+# Enable bundle for Assetic and KaliopStaticHtmlBundle use
+assetic:
+    bundles: [ KaliopStaticHtmlBundle ]
+
+# Add to Twig global variables, using a namespace to avoid collisions
+# (especially if you have more than one static-html bundle)
+twig:
+    globals:
+        kaliop_static_html:
+            test: 'It works.'

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% if metaTitle|default(0) %}
+    <title>{{ metaTitle }}</title>
+    {% endif %}
+    <style>
+    {% include '@KaliopStaticHtml/styles.css.twig' %}
+    </style>
+</head>
+<body>
+
+{% include '@KaliopStaticHtml/icons.svg.twig' %}
+
+<nav>
+    <ul>
+        {% block breadcrumbs %}
+        <li>static</li>
+        {% endblock %}
+    </ul>
+</nav>
+
+{% block content %}{% endblock %}
+
+</body>
+</html>

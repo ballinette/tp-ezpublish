@@ -71,7 +71,7 @@ sub vcl_recv {
     }
 
     // Retrieve client user hash and add it to the forwarded request.
-    call ez_user_hash;
+    // call ez_user_hash;
 
     // If it passes all these tests, do a lookup anyway.
     return (hash);
@@ -118,6 +118,7 @@ sub ez_purge {
 }
 
 // Sub-routine to get client user hash, for context-aware HTTP cache.
+/*
 sub ez_user_hash {
 
     // Prevent tampering attacks on the hash mechanism
@@ -173,6 +174,7 @@ sub ez_user_hash {
         return (hash);
     }
 }
+*/
 
 sub vcl_deliver {
     // On receiving the hash response, copy the hash header to the original

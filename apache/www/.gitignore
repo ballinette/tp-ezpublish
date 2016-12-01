@@ -23,7 +23,6 @@
 /web/extension
 /web/share
 /web/var
-/web/.htaccess
 /web/phpinfo.php
 /web/css/*
 /web/js/*

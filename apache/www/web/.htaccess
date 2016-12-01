@@ -1,0 +1,80 @@
+#copy this file to a new file called .htaccess in your eZ Publish web folder
+# to secure your installation by turning on .htaccess based virtual host mode.
+
+# Environment.
+# Possible values: "prod" and "dev" out-of-the-box, other values possible with proper configuration
+# Defaults to "prod" if omitted
+SetEnv ENVIRONMENT "dev"
+SetEnv   LC_ALL  fr_FR.UTF-8
+
+php_value date.timezone "Europe/Paris"
+
+# Whether to use debugging.
+# Possible values: 0 or 1
+# Defaults to 0 if omitted, unless ENVIRONMENT is set to: "dev"
+#SetEnv USE_DEBUGGING 0
+
+# Whether to use Symfony's HTTP Caching.
+# Disable it if you are using an external reverse proxy (e.g. Varnish)
+# Possible values: 0 or 1
+# Defaults to 1 if omitted, unless ENVIRONMENT is set to: "dev"
+SetEnv USE_HTTP_CACHE 0
+
+# Defines the proxies to trust.
+# Separate entries by a comma
+# Example: "proxy1.example.com,proxy2.example.org"
+# By default, no trusted proxies are set
+SetEnv TRUSTED_PROXIES "varnish"
+
+DirectoryIndex index.php
+ 
+RewriteEngine On
+
+# v1 rest API is on Legacy
+RewriteRule ^api/[^/]+/v1/ /index_rest.php [L]
+
+#Fix for accessing storage files directly (Error 500 otherwise)
+RewriteRule ^var/[^/]+/storage/.* - [L]
+
+RewriteRule ^var/([^/]+/)?storage/images(-versioned)?/.* - [L]
+RewriteRule ^var/([^/]+/)?cache/(texttoimage|public)/.* - [L]
+RewriteRule ^design/[^/]+/(stylesheets|images|javascript|fonts)/.* - [L]
+RewriteRule ^share/icons/.* - [L]
+RewriteRule ^extension/[^/]+/design/[^/]+/(stylesheets|flash|images|lib|javascripts?)/.* - [L]
+RewriteRule ^packages/styles/.+/(stylesheets|images|javascript)/[^/]+/.* - [L]
+RewriteRule ^packages/styles/.+/thumbnail/.* - [L]
+RewriteRule ^var/storage/packages/.* - [L]
+
+# Makes it possible to placed your favicon at the root of your
+# eZ Publish instance. It will then be served directly.
+RewriteRule ^favicon\.ico - [L]
+# Uncomment the line below if you want you favicon be served from the standard design.
+# You can customize the path to favicon.ico by replacing design/standard/images/favicon.ico
+# by the adequate path.
+#RewriteRule ^favicon\.ico /design/standard/images/favicon\.ico [L]
+RewriteRule ^design/standard/images/favicon\.ico - [L]
+
+# Give direct access to robots.txt for use by crawlers (Google, Bing, Spammers..)
+RewriteRule ^robots\.txt - [L]
+
+# Platform for Privacy Preferences Project ( P3P ) related files
+# for Internet Explorer
+# More info here : http://en.wikipedia.org/wiki/P3p
+RewriteRule ^w3c/p3p\.xml - [L]
+
+# Uncomment the following lines when using popup style debug in legacy
+#RewriteRule ^var/([^/]+/)?cache/debug\.html.* - [L]
+
+# Following rule is needed to correctly display assets from eZ Publish5 / Symfony bundles
+RewriteRule ^bundles/ - [L]
+
+# Additional Assetic rules for eZ Publish 5.1 / 2013.4 and higher:
+## Don't forget to run php ezpublish/console assetic:dump --env=prod
+## and make sure to comment these out in dev environment.
+RewriteRule ^css/.*\.css - [L]
+RewriteRule ^js/.*\.js - [L]
+# ACtivate this Rule only to test without assetic controller (dumped assets)!
+#RewriteRule ^compiled/.*\.js - [L]
+
+RewriteRule .* index\.php
+

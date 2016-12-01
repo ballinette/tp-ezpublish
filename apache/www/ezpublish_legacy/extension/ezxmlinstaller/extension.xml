@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<software>
+    <metadata>
+        <name>eZ XML Installer</name>
+        <version>1.4</version>
+        <copyright>Copyright (C) 1999-2012 eZ Systems AS</copyright>
+        <license>eZ Business Use License Agreement eZ BUL Version 1.2</license>
+        <info_url>http://projects.ez.no/ezxmlinstaller</info_url>
+    </metadata>
+</software>

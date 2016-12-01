@@ -1,0 +1,18 @@
+1.2.9
+=====
+
+- added ezcountry datatype template.
+/!\ needs a patch on ezcountry type class : https://stash.kaliop.net/projects/EZP5/repos/ezpublish5-legacy/commits/0ae45a5d91d33163bc634c91deb622c76af4053e
+
+
+1.2.10
+======
+
+- attribute names translations for all existing datatypes
+previously :
+{include uri='design:xmlinstaller/datatypes/ezstring.tpl' identifier='title' attr_name='Titre' required=true placement=10}
+now :
+{include uri='design:xmlinstaller/datatypes/ezstring.tpl' identifier='title' attr_name_locale=hash('fre-FR', 'Titre', 'eng-GB', 'Title') required=true placement=10}
+You can still use the old way if you have only a french version of your class. All default locales are set to fre-FR
+
+New include parameter : always_available_locale (eg. always_available_locale="eng-GB"). This defaults to fre-FR.

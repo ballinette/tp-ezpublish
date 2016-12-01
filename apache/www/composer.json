@@ -1,0 +1,108 @@
+{
+    "name": "ezsystems/ezpublish-community",
+    "description": "eZ Publish 5 community distribution",
+    "homepage": "http://share.ez.no",
+    "license": "BUL-2.1",
+    "authors": [
+        {
+            "name": "eZ Publish dev-team & eZ Community",
+            "homepage": "https://github.com/ezsystems/ezpublish-community/contributors"
+        }
+    ],
+    "repositories": [
+        { "type": "vcs", "url": "ssh://git@stash.kaliop.net:7999/ezp5/ezpublish5-kernel.git" },
+        { "type": "vcs", "url": "ssh://git@stash.kaliop.net:7999/ezp5/ezpublish5-legacy.git" },
+        { "type": "vcs", "url": "ssh://git@stash.kaliop.net:7999/ezp5/ezpublish5-kalioputilsbundle.git" },
+        { "type": "vcs", "url": "ssh://git@stash.kaliop.net:7999/ez/ezxmlinstaller.git"},
+        { "type": "vcs", "url": "ssh://git@stash.kaliop.net:7999/ezp5/ezpublish5-statichtmlbundle.git" }
+    ],
+    "autoload": {
+        "psr-0": { "": "src/" }
+    },
+    "require": {
+        "php": ">=5.3.17",
+        "symfony/symfony": "~2.5.6",
+        "twig/extensions": "~1.0",
+        "symfony/assetic-bundle": "~2.3",
+        "symfony/swiftmailer-bundle": "~2.3",
+        "symfony/monolog-bundle": "~2.4",
+        "sensio/distribution-bundle": "~2.3|~3.0",
+        "sensio/generator-bundle": "~2.3",
+        "incenteev/composer-parameter-handler": "~2.0",
+        "tedivm/stash-bundle": "0.4.*",
+        "ezsystems/ezpublish-kernel": ">=2014.11",
+        "ezsystems/ezpublish-legacy": ">=2014.11",
+        "ezsystems/demobundle": ">=2014.11",
+        "ezsystems/comments-bundle": ">=2014.11",
+		"ezsystems/ezxmlinstaller-ls": "1.3.*",
+        "egulias/listeners-debug-command-bundle": "~1.9",
+        "white-october/pagerfanta-bundle": "1.0.*",
+        "whiteoctober/breadcrumbs-bundle": "~1.0.1",
+        "nelmio/cors-bundle": "~1.3",
+        "hautelook/templated-uri-bundle": "~1.0 | ~2.0",
+        "doctrine/doctrine-bundle": "~1.2",
+        "doctrine/orm":  "~2.2,>=2.2.3",
+        "symfony/expression-language": "~2.4",
+        "kaliop/utilsbundle": "~1.5.3",
+        "sensio/framework-extra-bundle": "~3.0",
+        "friendsofsymfony/jsrouting-bundle": "~1.5"
+    },
+    "require-dev": {
+        "behat/behat": "3.0.*",
+        "behat/symfony2-extension": "2.0.*",
+        "behat/sahi-client": "dev-master as 1.1.1",
+        "behat/mink-extension": "*",
+        "behat/mink-goutte-driver": "*",
+        "behat/mink-selenium-driver": "*",
+        "behat/mink-sahi-driver": "*",
+        "behat/mink-selenium2-driver": "*",
+        "ezsystems/behatbundle": "@dev",
+        "kaliop/statichtmlbundle": "@dev"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "cp ezpublish/config/settings_instance_dev.yml.dist ezpublish/config/settings_instance_dev.yml",
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "eZ\\Bundle\\EzPublishLegacyBundle\\Composer\\ScriptHandler::installAssets",
+            "eZ\\Bundle\\EzPublishCoreBundle\\Composer\\ScriptHandler::dumpAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "eZ\\Bundle\\EzPublishLegacyBundle\\Composer\\ScriptHandler::installLegacyBundlesExtensions",
+            "Kaliop\\UtilsBundle\\Composer\\ScriptHandler::fosJsRoutingDump"
+        ],
+        "post-update-cmd": [
+            "cp ezpublish/config/settings_instance_dev.yml.dist ezpublish/config/settings_instance_dev.yml",
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "eZ\\Bundle\\EzPublishLegacyBundle\\Composer\\ScriptHandler::installAssets",
+            "eZ\\Bundle\\EzPublishCoreBundle\\Composer\\ScriptHandler::dumpAssetsHelpText",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "eZ\\Bundle\\EzPublishLegacyBundle\\Composer\\ScriptHandler::installLegacyBundlesExtensions",
+            "Kaliop\\UtilsBundle\\Composer\\ScriptHandler::fosJsRoutingDump"
+        ]
+    },
+    "config": {
+        "process-timeout": 3000,
+        "bin-dir": "bin"
+    },
+    "extra": {
+        "symfony-cache-warmup": true,
+        "symfony-app-dir": "ezpublish",
+        "symfony-web-dir": "web",
+        "ezpublish-legacy-dir": "ezpublish_legacy",
+        "___ezpublish-asset-dump-env": "To set environment used by dumpAssets script, like 'prod', or 'none' to skip",
+        "ezpublish-asset-dump-env": "",
+        "___symfony-assets-install": "One of 'symlink', 'relative' (symlinks) or 'hard'",
+        "symfony-assets-install": "relative",
+        "incenteev-parameters": {
+            "file": "ezpublish/config/parameters.yml"
+        },
+        "installer-paths": {
+            "ezpublish_legacy/extension": ["ezsystems/ezxmlinstaller"]
+        }
+    }
+}

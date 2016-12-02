@@ -15,6 +15,9 @@
 /ezpublish/cache/
 /ezpublish/logs/
 /ezpublish/bootstrap.php.cache
+/ezpublish/SymfonyRequirements.php
+/ezpublish/check.php
+/var/log/
 /web/index_treemenu.php
 /web/index_rest.php
 /web/index_cluster.php

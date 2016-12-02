@@ -12,4 +12,4 @@
 /bin/win32
 /vendor
 /composer.lock
-
+/extension/ezcommentsbundle

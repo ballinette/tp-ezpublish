@@ -86,6 +86,11 @@ sub vcl_backend_response {
         return (abandon);
     }
 
+    if (beresp.status >= 400) {
+        set beresp.http.CacheControl = "no-cache";
+        set beresp.ttl = 0s;
+    }
+
     // Optimize to only parse the Response contents from Symfony
     if (beresp.http.Surrogate-Control ~ "ESI/1.0") {
         unset beresp.http.Surrogate-Control;
@@ -200,12 +205,10 @@ sub vcl_deliver {
     // Sanity check to prevent ever exposing the hash to a client.
     unset resp.http.x-user-hash;
 
-    if (client.ip ~ debuggers) {
-        if (obj.hits > 0) {
-            set resp.http.X-Cache = "HIT";
-            set resp.http.X-Cache-Hits = obj.hits;
-        } else {
-            set resp.http.X-Cache = "MISS";
-        }
+    if (obj.hits > 0) {
+        set resp.http.X-Cache = "HIT";
+        set resp.http.X-Cache-Hits = obj.hits;
+    } else {
+        set resp.http.X-Cache = "MISS";
     }
 }

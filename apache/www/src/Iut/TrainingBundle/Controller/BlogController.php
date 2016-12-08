@@ -46,6 +46,22 @@ class BlogController extends Controller
             [ 'locations' => $listLocation, 'content' => $location->getContentInfo() ]
         );
 
-
     }
+
+    public function blogpostAction( $locationId, $viewType, $layout = false, array $params = [] )
+    {
+        $repository     = $this->getRepository();
+
+        $location       = $repository->getLocationService()->loadLocation( $locationId );
+        $ownerId        = $location->contentInfo->ownerId;
+        $owner          = $repository->getUserService()->loadUser( $ownerId );
+
+        $params += [ 'owner' => $owner ];
+
+        $response = $this->container->get( "ez_content" )
+            ->viewLocation( $locationId, $viewType, $layout, $params );
+
+        return $response;
+    }
+
 }

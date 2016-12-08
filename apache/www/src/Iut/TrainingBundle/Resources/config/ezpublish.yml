@@ -1,0 +1,9 @@
+ezpublish:
+    system:
+        www:
+            location_view:
+                full:
+                    blog:
+                        match:
+                            Identifier\ContentType: blog
+                        controller: "IutTrainingBundle:Blog:index"

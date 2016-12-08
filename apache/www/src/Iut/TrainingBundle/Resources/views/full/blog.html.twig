@@ -1,0 +1,31 @@
+{% extends "IutTrainingBundle::pagelayout.html.twig" %}
+
+{% block title ez_content_name( content ) %}
+
+{% block content %}
+<h2>solution 1 : afficher uniquement le nom des enfants</h2>
+<ul>
+    {% for location in locations %}
+        <li>
+            <a href="{{ path( location ) }}">
+                {{ ez_content_name( location.contentInfo ) }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+
+<h2>solution 2 : afficher les vues résumées des enfants</h2>
+<ul>
+    {% for location in locations %}
+        {{ render( controller(
+            'ez_content:viewLocation',
+            {
+                locationId: location.id,
+                viewType: 'line'
+            }
+        )) }}
+    {% endfor %}
+
+</ul>
+
+{% endblock %}

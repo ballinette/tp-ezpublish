@@ -9,7 +9,7 @@ services:
     ports:
     - "80:6081"
     volumes:
-      - "./varnish/:/etc/varnish/conf.d/"
+      - "./varnish/conf.d/:/etc/varnish/conf.d/"
     networks:
     - web
 

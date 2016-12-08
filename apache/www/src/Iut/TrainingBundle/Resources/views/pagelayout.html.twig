@@ -1,0 +1,10 @@
+<html>
+    <body>
+        <h1>{% block title %}Home{% endblock %} - My website</h1>
+        {% block content %}
+            {% if module_result.content %}
+                {{ module_result.content|raw }}
+            {% endif %}
+        {% endblock %}
+    </body>
+</html>

@@ -42,7 +42,7 @@ use Knp\Bundle\MenuBundle\KnpMenuBundle;
 use Oneup\FlysystemBundle\OneupFlysystemBundle;
 use Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle;
 use Kaliop\StaticHtmlBundle\KaliopStaticHtmlBundle;
-
+use Iut\TrainingBundle\IutTrainingBundle;
 
 class EzPublishKernel extends Kernel
 {
@@ -81,7 +81,8 @@ class EzPublishKernel extends Kernel
             new KnpMenuBundle(),
             new OneupFlysystemBundle(),
             new KaliopUtilsBundle(),
-            new FOSJsRoutingBundle()
+            new FOSJsRoutingBundle(),
+            new IutTrainingBundle()
         );
 
         switch ( $this->getEnvironment() )

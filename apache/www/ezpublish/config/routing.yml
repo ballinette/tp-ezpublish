@@ -26,3 +26,7 @@ _liip_imagine:
 
 _ezpublishDemoRoutes:
     resource: "@eZDemoBundle/Resources/config/routing.yml"
+
+iut_training:
+    resource: "@IutTrainingBundle/Resources/config/routing.yml"
+    prefix:   /

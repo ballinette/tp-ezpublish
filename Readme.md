@@ -110,6 +110,11 @@ Documentations utiles :
 - http://apidoc.ez.no/sami/trunk/NS/html/eZ/Publish/API/Repository.html
 - https://doc.ez.no/display/EZP/Criteria+reference
 
+## Exercice 2bis : simplifier la méthode de listing des noeuds enfants, à l'aide de helper
+
+utiliser les méthodes de la classe `Kaliop\UtilsBundle\Helper\LocationHelper`
+
+
 ## Exercice 3 : Ajouter les vues pour les blog posts
 
 * Configurer de manière globale le layout par défaut
@@ -118,8 +123,31 @@ Documentations utiles :
   * nom de l'auteur
   * contenu
 
+## Exercice 3bis : jouer sur les temps de mise en cache
+
+Configurer les controllers `Blog` et `BlogPost` pour une mise en cache Varnish avec des durées différentes
+
+Documentation utile : http://symfony.com/doc/current/http_cache.html#expiration-caching
+
 ## Execice 4 : Ajouter des feuilles de style CSS avec Assetics
 
 Documentation utile :
 http://symfony.com/doc/2.8/assetic/asset_management.html
 
+## Exercice 5 : Créer un datatype "Tweet"
+
+* Tutoriel : https://doc.ez.no/display/EZP/eZ+Publish+5+Field+Type+Tutorial
+* Créer une classe de contenu `Twitter` avec un attribut de type `Tweet`
+* Créer un objet de cette classe `Twitter`, positionné sous la racine du Blog
+* Afficher cet objet dans toutes les pages (Blog et blog post)
+
+## Bonus : ESI
+
+* Afficher l'objet de classe `Twitter` dans des blocs ESI.
+
+
+## Pour aller plus loin...
+ * Utilisation du bundle `eZObjectWrapper` pour optimiser les chargements de contenus associés :
+ https://github.com/kaliop/ezobjectwrapper/tree/stable-2.0
+
+* Gestion des caches HTTP : https://doc.ez.no/display/EZP/HttpCache

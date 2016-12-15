@@ -15,35 +15,17 @@ class BlogController extends Controller
 
     public function indexAction( $locationId, $viewType, $layout = false, array $params = [] )
     {
-
         $repository = $this->getRepository();
         $location = $repository->getLocationService()->loadLocation( $locationId );
-        $query = new Query();
-        $query->criterion = new Criterion\LogicalAnd( [
-            new Criterion\Subtree( [ $location->pathString ] ),
-            new Criterion\ContentTypeIdentifier( 'blog_post' )
-        ] );
-        $query->sortClauses[] = new SortClause\DatePublished( Query::SORT_DESC );
 
-        $searchResult = $this->getRepository()
-            ->getSearchService()
-            ->findContent( $query );
-
-        $listLocation = [];
-        if ( $searchResult->totalCount )
-        {
-            foreach ( $searchResult->searchHits as $hit )
-            {
-                $listLocation[] = $this->getRepository()
-                    ->getLocationService()
-                    ->loadLocation(
-                        $hit->valueObject->versionInfo->contentInfo->mainLocationId
-                    );
-            }
-        }
+        $listLocation = $this->container->get('kalioputils.helper.location')->loadLocationChildren(
+            $location,
+            ['blog_post'],
+            [new SortClause\DatePublished( Query::SORT_DESC )]
+        );
         return $this->render(
             'IutTrainingBundle:full:blog.html.twig',
-            [ 'locations' => $listLocation, 'content' => $location->getContentInfo() ]
+            [ 'locations' => $listLocation->locations, 'content' => $location->getContentInfo() ]
         );
 
 

@@ -1,0 +1,4 @@
+# Twig Configuration
+twig:
+    globals:
+        blog_layout: 'IutTrainingBundle::pagelayout.html.twig'

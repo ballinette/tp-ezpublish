@@ -7,3 +7,8 @@ ezpublish:
                         match:
                             Identifier\ContentType: blog
                         controller: "IutTrainingBundle:Blog:index"
+                    blog_post:
+                        match:
+                            Identifier\ContentType: blog_post
+                        controller: "IutTrainingBundle:Blog:blogpost"
+                        template: "IutTrainingBundle:full:blog_post.html.twig"

@@ -1,0 +1,8 @@
+{% extends noLayout ? viewbaseLaout : blog_layout %}
+
+{% block content %}
+    <h2>{{ ez_content_name( content ) }}</h2>
+
+    {{ ez_content_name( owner.content ) }}
+    {{ ez_render_field( content, "body" ) }}
+{% endblock %}

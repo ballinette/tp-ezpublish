@@ -1,3 +1,6 @@
+imports:
+    - { resource: '@IutTrainingBundle/Resources/config/ezpublish.yml' }
+
 doctrine:
     dbal:
         connections:

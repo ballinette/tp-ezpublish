@@ -105,8 +105,10 @@ Résultat attendu : une page simple avec affichage du nom passé en paramètre.
   * afficher uniquement le titre de chaque "blog_post" enfant.
 
 Documentations utiles :
-https://doc.ez.no/display/EZP/View+provider+configuration
-https://doc.ez.no/display/EZP/Criteria+reference
+- https://doc.ez.no/display/EZP/View+provider+configuration
+- https://doc.ez.no/display/EZP/2.+Browsing%2C+finding%2C+viewing
+- http://apidoc.ez.no/sami/trunk/NS/html/eZ/Publish/API/Repository.html
+- https://doc.ez.no/display/EZP/Criteria+reference
 
 ## Exercice 3 : Ajouter les vues pour les blog posts
 

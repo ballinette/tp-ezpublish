@@ -1,3 +1,10 @@
 imports:
     -
         resource: ezpublish.yml
+
+ezpublish:
+    system:
+        www:
+            content:
+                tree_root:
+                    location_id: 90
